@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html data-theme="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PhysiOpt</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@300;400;500;600&family=Roboto+Mono&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Architects Daughter" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet" />
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="./js/bulma_toggle.js"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/5fd1dd8417.js" crossorigin="anonymous"></script>
+
+    <!-- Academicons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+    <link rel="icon" href="./assets/favicon-32x32.png" />
+
+    <!-- MathJax for TeX equation support -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <!-- BEGIN: Title & Authors Section -->
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-widescreen has-text-centered">
+                <h1 class="title is-size-1 is-size-2-mobile publication-title">
+                    PhysiOpt: Physics-Driven Shape Optimization for 3D Generative Models
+                </h1>
+                <div class="is-size-3-tablet publication-institute">
+                    <span class="author-block">SIGGRAPH Asia 2025 Conference</span>
+                </div>
+
+                <div class="container is-max-desktop has-text-centered author-list">
+                    <div class="columns is-mobile is-centered is-gapless">
+                        <div class="column is-3-tablet is-size-5-tablet publication-authors">
+                            <a class="author-blocks" href="https://seanzhan.com/">Xiao Sean Zhan*
+                                <sup>1</sup></a>
+                        </div>
+                        <div class="column is-3-tablet is-size-5-tablet publication-authors">
+                            <a class="author-blocks" href="https://clementjambon.github.io/">Clément Jambon*
+                                <sup>1</sup></a>
+                        </div>
+                        <div class="column is-3-tablet is-size-5-tablet publication-authors">
+                            <a class="author-blocks" href="https://evanthompson.site/about">Evan Thompson
+                                <sup>1</sup></a>
+                        </div>
+                        <div class="column is-3-tablet is-size-5-tablet publication-authors">
+                            <a class="author-blocks" href="https://research.ibm.com/people/kenney-ng">Kenney
+                                Ng<sup>2</sup></a>
+                        </div>
+                        <div class="column is-3-tablet is-size-5-tablet publication-authors">
+                            <a class="author-blocks" href="https://people.csail.mit.edu/mina/">Mina Konaković
+                                Luković<sup>1</sup></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="is-size-5-tablet equal-contribution">
+                    <span class="author-block">* equal contribution</span>
+                </div>
+
+                <div class="is-size-5-tablet publication-institute">
+                    <span class="author-block">MIT</span>
+                    <sup>1</sup>
+                    &nbsp;&nbsp;
+                    <span class="author-block">MIT-IBM Watson AI Lab</span>
+                    <sup>2</sup>
+                </div>
+
+                <div class="is-size-5 link-blocks">
+                    <a class="button link-button is-rounded" href="#">
+                        <span class="icon">
+                            <i class="fa-solid fa-file"></i>
+                        </span>
+                        <span>Paper</span>
+                    </a>
+                    <a class="button link-button is-rounded" href="#">
+                        <span class="icon">
+                            <i class="fas fa-mouse"></i>
+                        </span>
+                        <span>Interactive Results</span>
+                    </a>
+                    <a class="button link-button is-rounded" href="#">
+                        <span class="icon">
+                            <i class="fa-brands fa-youtube"></i>
+                        </span>
+                        <span>Video</span>
+                    </a>
+                    <a class="button link-button is-rounded" href="#">
+                        <span class="icon">
+                            <i class="fab fa-github"></i>
+                        </span>
+                        <span>Code</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END: Title & Authors Section -->
+    <!-- BEGIN: Teaser Section -->
+    <section class="hero">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+                <img src="./assets/teaser.png" width="100%" style="display: block; margin: auto;" />
+                <h2 class="tldr">
+                    <br />
+                    PhysiOpt enables physics-driven shape optimization of shapes produced by 3D generative models. Given
+                    a 3D generated object, users
+                    can specify task-specific constraints,
+                    such as loads, boundary conditions, or materials. Our differentiable optimizer
+                    optimizes shapes directly in the latent space of the 3D
+                    generator to improve its physical compliance. The result can
+                    then be fabricated into a physically viable object.
+                </h2>
+            </div>
+        </div>
+    </section>
+    <!-- <div class="container is-max-desktop" style="margin-bottom: 2rem;">
+        <div class="publication-video">
+            <iframe src="" title="Video" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+        </div>
+    </div> -->
+    <!-- END: Teaser Section -->
+    <!-- BEGIN: Abstract Section -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="column is-full-width is-centered has-text-centered has-text-left-mobile">
+                <h2 class="subtitle is-size-3 has-text-weight-medium publication-keywords">
+                    Abstract
+                </h2>
+                <div class="content has-text-justified">
+                    <p>
+                        Generative models have recently demonstrated impressive capabilities in producing high-quality
+                        3D shapes from a variety of user inputs (e.g., text or images). However, generated objects often
+                        lack physical integrity. We introduce PhysiOpt, a differentiable physics optimizer designed to
+                        improve the physical behavior of 3D generative outputs, enabling them to transition from virtual
+                        designs to physically plausible, real-world objects. While most generative models represent
+                        geometry as continuous implicit fields, physics-based approaches often rely on the finite
+                        element method (FEM), requiring ad hoc mesh extraction to perform shape optimization. In
+                        addition, these methods are typically slow, limiting their integration in fast, iterative
+                        generative design workflows. Instead, we bridge the representation gap and propose a fast and
+                        effective differentiable simulation pipeline that optimizes shapes directly in the latent space
+                        of generative models using an intuitive and easy-to-implement differentiable mapping. This
+                        approach enables fast optimization while preserving semantic structure, unlike traditional
+                        methods relying on local mesh-based adjustments. We demonstrate the versatility of our optimizer
+                        across a range of shape priors, from global and part-based latent models to a state-of-the-art
+                        large-scale 3D generator, and compare it to a traditional mesh-based shape optimizer. Our method
+                        preserves the native representation and capabilities of the underlying generative model while
+                        supporting user-specified materials, loads, and boundary conditions. The resulting designs
+                        exhibit improved physical behavior, remain faithful to the learned priors, and are suitable for
+                        fabrication. We demonstrate the effectiveness of our approach on both virtual and fabricated
+                        objects.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END: Abstract Section -->
+
+    <!-- BEGIN: Method Section -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="column is-full-width is-centered has-text-centered">
+                <h3 class="subtitle is-size-4 has-text-weight-medium publication-keywords" style="margin-top: 2rem;">
+                    Differentiable Shape Optimization Pipeline
+                </h3>
+                <img src="./assets/pipeline.png" width="100%" style="display: block; margin: auto;" />
+            </div>
+
+            <p class="normal-text">
+                Our approach supports a variety of input modalities (Inputs, left), including libraries of shapes and
+                parts,
+                images, and text prompts, which are converted into the latent parameters of a given generative model.
+                Users can also specify materials, loads, and boundary conditions.
+                Given a latent parameter $\boldsymbol{\pi}$, PhysiOpt decodes it into an implicit field
+                $\phi(\cdot, \boldsymbol{\pi})$, which is voxelized to produce a sparse set of density-weighted finite
+                elements.
+                Under the user-defined conditions, we solve for displacements using linear static analysis and compute a
+                physics-based loss $J(\boldsymbol{\pi})$.
+                The entire process is fully differentiable, allowing iterative updates of $\boldsymbol{\pi}$ towards
+                more physically compliant designs (Differentiable Optimization, right).
+            </p>
+
+            <div class="column is-full-width is-centered has-text-centered">
+                <h3 class="subtitle is-size-4 has-text-weight-medium publication-keywords" style="margin-top: 2rem;">
+                    Support for Various 3D Generative Models
+                </h3>
+                <img src="./assets/priors.png" width="70%" style="display: block; margin: auto;" />
+            </div>
+            <p class="normal-text">
+                PhysiOpt is compatible with various 3D generative models including global-shape latent models (e.g., <a
+                    href="https://arxiv.org/abs/1901.05103" target="_blank" rel="noopener">DeepSDF</a>), part-based
+                latent models and state-of-the-art large-scale 3D generators (e.g., <a
+                    href="https://arxiv.org/abs/2506.04748" target="_blank" rel="noopener">TRELLIS</a>).
+            </p>
+            <div class="column is-full-width is-centered has-text-centered">
+                <h3 class="subtitle is-size-4 has-text-weight-medium publication-keywords" style="margin-top: 2rem;">
+                    Precise Boundary and Load Control
+                </h3>
+                <img src="./assets/control.png" width="70%" style="display: block; margin: auto;" />
+            </div>
+            <p class="normal-text">
+                Our method fully leverages the flexibility of the finite element method (FEM) by allowing users to
+                define
+                custom boundary conditions (black) and apply loads
+                to specific regions (red with arrows). This enables adaptation to a wide range of real-world scenarios.
+            </p>
+            <div class="column is-full-width is-centered has-text-centered">
+                <h3 class="subtitle is-size-4 has-text-weight-medium publication-keywords" style="margin-top: 2rem;">
+                    Iterative Design
+                </h3>
+                <img src="./assets/design.png" width="90%" style="display: block; margin: auto;" />
+            </div>
+            <p class="normal-text">
+                By operating directly in the latent space of a generative model, PhysiOpt
+                retains its full capabilities and enables multi-step
+                design phases without cumbersome and “lossy” conversions between representations. For example, with
+                <a href="https://arxiv.org/abs/2506.04748" target="_blank" rel="noopener">TRELLIS</a>, users can start
+                by generating a
+                shape from an input image, optimize it under specific loads (e.g., an additional load on the front
+                porch), modify the geometry via inpainting (e.g., by adding a
+                side platform with a flowerpot), and then re-optimize the updated shape to account for the new geometry.
+            </p>
+            <div class="column is-full-width is-centered has-text-centered">
+                <h3 class="subtitle is-size-4 has-text-weight-medium publication-keywords" style="margin-top: 2rem;">
+                    Semantically Consistent Changes
+                </h3>
+                <img src="./assets/semantics.png" width="70%" style="display: block; margin: auto;" />
+            </div>
+            <p class="normal-text">
+                Constrary to traditional mesh-based shape optimization methods (e.g., <a
+                    href="https://huangzizhou.github.io/research/diffipc.html" target="_blank"
+                    rel="noopener">DiffIPC</a>), PhysiOpt enables semantically
+                consistent changes to geometry rather than vertex perturbations. Operating in the latent space of
+                generative models also leads to faster convergence.
+            </p>
+            <div class="column is-full-width is-centered has-text-centered">
+                <h3 class="subtitle is-size-4 has-text-weight-medium publication-keywords" style="margin-top: 2rem;">
+                    Fabrication Results
+                </h3>
+                <img src="./assets/fabrication.png" width="100%" style="display: block; margin: auto;" />
+            </div>
+            <p class="normal-text">
+                We demonstrate the effectiveness of our optimizer by fabricating various shapes before and after
+                optimization. In this example, the unoptimized octopus chair (left) deforms and its legs touch the
+                ground, while
+                the unoptimized flamingo glass (right) tips over with minimal weight.
+            </p>
+        </div>
+    </section>
+    <!-- END: Method Section -->
+
+
+    <!-- BEGIN: BibTeX Section -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="column is-full-width is-centered has-text-centered">
+                <h2 class="subtitle is-size-3 has-text-weight-medium publication-keywords">BibTeX</h2>
+            </div>
+            <div class="box bibtex-box">
+                <pre style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;">
+@inproceedings{physiopt,
+  title     = {PhysiOpt: Physics-Driven Shape Optimization for 3D Generative Models},
+  author    = {Zhan, Xiao and Jambon, Cl{\'e}ment and Thompson, Evan and Ng, Kenney and Konakovi{\'c} Lukovi{\'c}, Mina},
+  booktitle = {ACM SIGGRAPH Asia 2025 Conference Proceedings},
+  year      = {2025},
+  note      = {Conditionally Accepted. To appear in ACM SIGGRAPH Asia 2025 Conference Proceedings.}
+}
+</pre>
+            </div>
+        </div>
+    </section>
+    <!-- END: BibTeX Section -->
+
+    <!-- BEGIN: Logo Section -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="column is-full-width is-centered has-text-centered">
+                <img src="./assets/logo_adg.png" style="display: block; margin: auto; width: 200px;"
+                    class="logo-responsive" />
+            </div>
+        </div>
+    </section>
+    <!-- END: Logo Section -->
+</body>
+
+</html>
